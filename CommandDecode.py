@@ -1,7 +1,9 @@
 import sys, re
 
 """
-A basic class to retrieve command line arguments in a more friendly format
+A basic class to retrieve command line arguments in a more friendly format.
+Also worth noting is that this class copies the values of the command
+line arguments preserving their state at initialization.
 
 Created by Henry Hammond 2012
 """
@@ -15,8 +17,10 @@ class argvDecoder:
 	#This method decodes the command line arguments 
 	def explodeArguments(self):
 		
+		#get list of commands
 		commands = [ [v,self.argv.index(v)] for v in self.argv[1:] if v[0] == '-']
 		counter = 0
+		#iterate through commands
 		for cmd in commands:
 			i = cmd[1]
 
@@ -27,7 +31,7 @@ class argvDecoder:
 			commands[counter][0] = re.sub("^-{1,2}",'',cmd[0])
 			commands[counter][1] = " ".join(self.argv[i:n][1:])
 			counter+=1
-
+		#return list
 		return commands
 
 	#Check if string is a flag passed from command line
